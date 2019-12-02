@@ -30,6 +30,7 @@ def part2(instructions: List[int]):
             output_memory = execute(instruction_list, noun, verb)
             if(output_memory[0] == 19690720):
                 print(f'Part 2 Solution {noun * 100 + verb}')
+                return
 
 instruction_list_as_string = sys.stdin.readlines()[0]
 instruction_list = [int(instruction) for instruction in instruction_list_as_string.split(',')]
