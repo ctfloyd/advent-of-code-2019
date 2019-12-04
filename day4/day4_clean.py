@@ -2,7 +2,7 @@ from typing import List
 
 # Not entirely happy with this code, something about it just feels messy to me still
 
-def check_for_runs(candidate_as_string : str, do_part1 : bool) -> bool:
+def check_for_runs(candidate_as_string : str) -> List[int]:
     run_length = []
     current_run = 1
     for i in range(len(candidate_as_string) - 1):
@@ -14,10 +14,7 @@ def check_for_runs(candidate_as_string : str, do_part1 : bool) -> bool:
 
     # Append the last run
     run_length.append(current_run)
-    if do_part1:
-        return True if len(set([2, 3, 4, 5, 6]) & set(run_length)) > 0 else False
-    else:
-        return 2 in run_length
+    return run_length
 
 def check_for_increasing_digits(candidate_as_string : str) -> bool:
     c = candidate_as_string
@@ -29,7 +26,12 @@ def check_conditions(candidate : int, lower_bound : int, upper_bount : int, do_p
         return False
     if len(candidate_as_string) != 6:
         return False
-    if not check_for_runs(candidate_as_string, do_part1):
+
+    runs = check_for_runs(candidate_as_string)
+
+    if do_part1 and len(set([1]) ^ set(runs)) == 0:
+        return False
+    elif not do_part1 and 2 not in runs:
         return False
     if not check_for_increasing_digits(candidate_as_string):
         return False
