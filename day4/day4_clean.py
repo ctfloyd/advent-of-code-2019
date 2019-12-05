@@ -46,7 +46,7 @@ def number_of_matches(lower_bound : int, upper_bound : int, do_part1 : bool) -> 
     return matches
 
 # File IO
-with open('/home/leo/code/advent-of-code-2019/day4/input', 'r') as file:
+with open('day4/input', 'r') as file:
     lines : List[str] = file.readlines()
 
 lines = lines[0].split('-')
