@@ -1,9 +1,9 @@
 const fs = require('fs');
 const readline = require('readline');
 
-function doDigtsIncrease(number) {
-    if(typeof number == Number) {
-        number = String(number);
+function doDigitsIncrease(number) {
+    if(typeof number == "number") {
+        number = number.toString();
     }
     let maxValue = 0;
     for(let i = 0; i < number.length; i++) {
@@ -17,12 +17,12 @@ function doDigtsIncrease(number) {
 }
 
 function correctLength(number) {
-    return String(number).length == 6;
+    return number.toString().length  == 6;
 }
 
 function hasAdjacentDigits(number) {
-    if(typeof number == Number) {
-        number = String(number);
+    if(typeof number == "number") {
+        number = number.toString();
     }
     for(let i = 1; i <= number.length; i++) {
         if(number[i - 1] == number[i]) {
@@ -32,8 +32,30 @@ function hasAdjacentDigits(number) {
     }
 }
 
+function hasAdjacentDigits2(number) {
+    if(typeof number == 'number') {
+        number = number.toString();
+    }
+    let runLength = 1;
+    for(let i = 1; i <= number.length; i++) {
+        if(number[i - 1] == number[i]) {
+            runLength++;
+        } else {
+            if(runLength == 2) {
+                return true;
+            }
+            runLength = 1;
+        }
+    }
+    return false;
+}
+
 function checkCriteria(number) {
     return correctLength(number) && hasAdjacentDigits(number) && doDigitsIncrease(number);
+}
+
+function checkCriteriaTwo(number) {
+    return correctLength(number) && hasAdjacentDigits2(number) && doDigitsIncrease(number);
 }
 
 function solve1(lowerRange, upperRange) {
@@ -44,8 +66,13 @@ function solve1(lowerRange, upperRange) {
     return count;
 }
 
-function solve2(inputAsList) {
+function solve2(lowerRange, upperRange) {
+    let count = 0;
+    for(let i = lowerRange; i <= upperRange; i++) {
+        if(checkCriteriaTwo(i)) count++;
+    }
+    return count;
 }
 
 console.log(solve1(136818, 685979));
-
+console.log(solve2(136818, 685979));
